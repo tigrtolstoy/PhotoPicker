@@ -1,14 +1,8 @@
 import os
 from cv2 import imread
-import shutil
-from src.file_manager import FileManager, FilesQueue
 
-TEST_DATA_DIR = 'tests/test_data'
-FOLDER_PATH = os.path.join(TEST_DATA_DIR, 'folders')
-IMAGE_NAME = 'img.jpeg'
-IMAGE_PATH = os.path.join(TEST_DATA_DIR, 'images', IMAGE_NAME)
-COPY_IMG_NAME = 'copy_img.jpeg'
-COPY_PATH = os.path.join(FOLDER_PATH, COPY_IMG_NAME)
+from src.file_manager import FileManager, FilesQueue
+from tests.constants import *
 
 
 manager = FileManager()
@@ -34,11 +28,11 @@ def test_file_manager_path_exists():
     assert manager.is_path_exists(TEST_DATA_DIR)
     assert not manager.is_path_exists('asdf')
 
-def test_file_manager_copy_file():
+def test_file_manager_copy_remove_file():
     manager.copy_file(IMAGE_PATH, COPY_PATH)
     assert COPY_IMG_NAME in manager.get_files_list(FOLDER_PATH)
     img1 = imread(IMAGE_PATH)
     img2 = imread(COPY_PATH)
     assert (img1 == img2).all()
-    os.remove(COPY_PATH)
+    manager.remove_file(COPY_PATH)
     assert COPY_IMG_NAME not in manager.get_files_list(FOLDER_PATH)

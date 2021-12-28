@@ -22,6 +22,12 @@ class FileManager:
             err_msg = self.NOT_FILE_ERROR.format(source_path)
             raise ValueError(err_msg)
         shutil.copyfile(source_path, copy_path)
+    
+    def remove_file(self, file_to_remove):
+        if not self.is_file(file_to_remove):
+            err_msg = self.NOT_FILE_ERROR.format(file_to_remove)
+            raise ValueError(err_msg)
+        os.remove(file_to_remove)
 
     def get_files_list(self, dir=None):
         if dir is None:

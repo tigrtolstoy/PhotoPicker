@@ -2,7 +2,7 @@ import cv2
 from os.path import split as split_path
 
 
-class Image:
+class ImageContainer:
     def __init__(self, path, preview_height=100):
         self.__path = path
         self.__preview_height = preview_height
